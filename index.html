@@ -1,26 +1,852 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aye Zarni Aung — Senior Flutter Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #D0021B;
+    --red-dark: #A00115;
+    --red-light: #FF1A33;
+    --black: #0A0A0A;
+    --white: #FAFAFA;
+    --grey: #8A8A8A;
+    --light: #F2F2F2;
+    --card-bg: #FFFFFF;
+    --border: #E5E5E5;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(250,250,250,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 900;
+    color: var(--red); letter-spacing: -0.5px;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--black); text-decoration: none;
+    position: relative; padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px; background: var(--red);
+    transition: width 0.25s ease;
+  }
+  .nav-links a:hover { color: var(--red); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    overflow: hidden;
+  }
+  .hero-left {
+    padding: 80px 60px 80px 60px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+  .hero-left::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, #fff 60%, #fff5f5 100%);
+    z-index: 0;
+  }
+  .hero-left > * { position: relative; z-index: 1; }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'DM Mono', monospace; font-size: 0.78rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 24px;
+  }
+  .hero-tag::before {
+    content: ''; width: 28px; height: 2px; background: var(--red);
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5rem);
+    font-weight: 900; line-height: 1.05;
+    letter-spacing: -2px; color: var(--black);
+    margin-bottom: 8px;
+  }
+  .hero-name span { color: var(--red); }
+
+  .hero-title {
+    font-size: 1.1rem; font-weight: 500;
+    color: var(--grey); margin-bottom: 32px; letter-spacing: 0.02em;
+  }
+
+  .hero-summary {
+    font-size: 1rem; line-height: 1.75; color: #444;
+    max-width: 480px; margin-bottom: 48px;
+  }
+
+  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--red); color: #fff;
+    padding: 14px 32px; border-radius: 4px;
+    font-size: 0.875rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    border: 2px solid var(--black); color: var(--black);
+    padding: 13px 28px; border-radius: 4px;
+    font-size: 0.875rem; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+  .hero-right {
+    background: var(--red);
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero-right::before {
+    content: 'AZA';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 22vw; font-weight: 900;
+    color: rgba(255,255,255,0.07);
+    letter-spacing: -8px;
+    user-select: none;
+  }
+  .hero-photo-wrap {
+    position: relative; z-index: 2;
+    width: 320px; height: 380px;
+  }
+  .hero-photo-frame {
+    width: 100%; height: 100%;
+    background: rgba(255,255,255,0.12);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 12px;
+  }
+  .avatar-initials {
+    width: 120px; height: 120px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 3px solid rgba(255,255,255,0.5);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 900; color: #fff;
+  }
+  .avatar-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem; font-weight: 700; color: #fff;
+    text-align: center;
+  }
+  .avatar-role {
+    font-size: 0.85rem; color: rgba(255,255,255,0.75);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    font-weight: 500; text-align: center;
+  }
+
+  .hero-stats {
+    position: absolute; bottom: 40px; left: 0; right: 0;
+    display: flex; justify-content: center; gap: 48px; z-index: 2;
+  }
+  .stat { text-align: center; color: #fff; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; display: block; }
+  .stat-label { font-size: 0.75rem; opacity: 0.75; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ── SECTIONS COMMON ── */
+  section { padding: 100px 60px; }
+  .section-header { margin-bottom: 60px; }
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'DM Mono', monospace; font-size: 0.75rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 16px;
+  }
+  .section-tag::before { content: ''; width: 24px; height: 2px; background: var(--red); }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 900; line-height: 1.1; letter-spacing: -1px;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--black); color: #fff; }
+  #experience .section-title { color: #fff; }
+  #experience .section-tag { color: #FF4D60; }
+  #experience .section-tag::before { background: #FF4D60; }
+
+  .timeline { position: relative; padding-left: 2px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 1px; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--red), transparent);
+  }
+
+  .tl-item {
+    display: grid; grid-template-columns: 220px 1fr;
+    gap: 40px; margin-bottom: 60px; position: relative;
+    padding-left: 36px;
+  }
+  .tl-item::before {
+    content: ''; position: absolute; left: -5px; top: 8px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--red); border: 2px solid var(--black);
+    box-shadow: 0 0 0 4px rgba(208,2,27,0.25);
+  }
+
+  .tl-meta {}
+  .tl-period {
+    font-family: 'DM Mono', monospace; font-size: 0.75rem;
+    color: var(--red); letter-spacing: 0.08em; margin-bottom: 6px;
+  }
+  .tl-company {
+    font-size: 0.9rem; font-weight: 600; color: #fff;
+    line-height: 1.4;
+  }
+  .tl-badge {
+    display: inline-block; margin-top: 10px;
+    background: rgba(208,2,27,0.2); border: 1px solid rgba(208,2,27,0.4);
+    color: #FF6070; font-size: 0.72rem; padding: 3px 10px; border-radius: 20px;
+    letter-spacing: 0.06em;
+  }
+
+  .tl-content {}
+  .tl-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; font-weight: 700; color: #fff;
+    margin-bottom: 16px;
+  }
+  .tl-list { list-style: none; }
+  .tl-list li {
+    font-size: 0.9rem; color: #aaa; line-height: 1.7;
+    padding-left: 18px; position: relative; margin-bottom: 6px;
+  }
+  .tl-list li::before {
+    content: '—'; position: absolute; left: 0; color: var(--red);
+    font-weight: 700;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--light); }
+
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  .skill-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 8px; padding: 32px;
+    transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .skill-card::after {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 4px; height: 100%; background: var(--red);
+    transform: scaleY(0); transform-origin: top;
+    transition: transform 0.25s ease;
+  }
+  .skill-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.1); transform: translateY(-3px); border-color: var(--red); }
+  .skill-card:hover::after { transform: scaleY(1); }
+
+  .skill-icon { font-size: 1.8rem; margin-bottom: 12px; }
+  .skill-cat {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 8px;
+  }
+  .skill-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem; font-weight: 700; margin-bottom: 14px;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    background: var(--light); border: 1px solid var(--border);
+    font-size: 0.78rem; padding: 4px 10px; border-radius: 3px;
+    font-family: 'DM Mono', monospace; color: #555;
+    transition: background 0.15s, color 0.15s;
+  }
+  .skill-card:hover .skill-tag { background: #fff5f5; border-color: rgba(208,2,27,0.2); color: var(--red-dark); }
+
+  /* ── PROJECTS ── */
+  #projects { background: #fff; }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  .project-card {
+    border: 1px solid var(--border); border-radius: 8px;
+    overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
+
+  .project-header {
+    height: 100px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px;
+    position: relative; overflow: hidden;
+  }
+  .project-header.red { background: var(--red); }
+  .project-header.dark { background: var(--black); }
+  .project-header.maroon { background: #7B0015; }
+  .project-header.crimson { background: #B00020; }
+  .project-header.accent { background: #E8001A; }
+  .project-header.deep { background: #5C000D; }
+
+  .project-header::before {
+    content: attr(data-logo);
+    position: absolute; right: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem; font-weight: 900;
+    color: rgba(255,255,255,0.1); letter-spacing: -2px;
+    user-select: none;
+  }
+
+  .project-logo-box {
+    width: 52px; height: 52px; border-radius: 12px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+  }
+  .project-store-badges {
+    display: flex; gap: 6px;
+  }
+  .store-badge {
+    font-size: 0.65rem; font-family: 'DM Mono', monospace;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9);
+    border: 1px solid rgba(255,255,255,0.25); border-radius: 3px;
+    padding: 4px 8px;
+  }
+
+  .project-body { padding: 24px 28px; }
+  .project-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 6px; }
+  .project-desc { font-size: 0.87rem; color: var(--grey); line-height: 1.6; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--red); color: #fff; }
+  #contact .section-title { color: #fff; }
+  #contact .section-tag { color: rgba(255,255,255,0.75); }
+  #contact .section-tag::before { background: rgba(255,255,255,0.6); }
+
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+  }
+  .contact-info p { font-size: 1.1rem; line-height: 1.8; color: rgba(255,255,255,0.85); margin-bottom: 36px; }
+  .contact-details { display: flex; flex-direction: column; gap: 18px; }
+  .contact-item {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .contact-icon {
+    width: 44px; height: 44px; border-radius: 8px;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+  }
+  .contact-text { font-size: 0.9rem; color: rgba(255,255,255,0.9); }
+  .contact-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.6; margin-bottom: 2px; }
+
+  .contact-right { display: flex; flex-direction: column; gap: 20px; }
+  .info-box {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px; padding: 24px;
+  }
+  .info-box h4 {
+    font-family: 'Playfair Display', serif; font-size: 1rem;
+    font-weight: 700; margin-bottom: 14px;
+  }
+  .info-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.87rem;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-key { opacity: 0.65; }
+  .info-val { font-weight: 500; }
+
+  /* ── PUBLICATIONS ── */
+  #pubs { background: var(--light); }
+  .pubs-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+  .pub-card {
+    background: #fff; border: 1px solid var(--border); border-radius: 6px;
+    padding: 24px; display: flex; align-items: flex-start; gap: 14px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .pub-card:hover { border-color: var(--red); transform: translateY(-2px); }
+  .pub-num {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem;
+    color: var(--red); font-weight: 500; margin-top: 2px; flex-shrink: 0;
+  }
+  .pub-title { font-size: 0.9rem; font-weight: 600; line-height: 1.5; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black); color: rgba(255,255,255,0.4);
+    text-align: center; padding: 32px 60px;
+    font-size: 0.82rem; letter-spacing: 0.04em;
+  }
+  footer span { color: var(--red); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * { animation: fadeUp 0.6s ease both; }
+  .hero-tag { animation-delay: 0.1s; }
+  .hero-name { animation-delay: 0.2s; }
+  .hero-title { animation-delay: 0.3s; }
+  .hero-summary { animation-delay: 0.4s; }
+  .hero-ctas { animation-delay: 0.5s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 80px 24px 60px; }
+    section { padding: 70px 24px; }
+    .tl-item { grid-template-columns: 1fr; gap: 12px; }
+    .contact-grid { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
-
 <body>
-  <div class="row">
-    <img alt="waso" src="https://github.com/user-attachments/assets/be9fe702-95ed-4d0b-9d84-8aed14a54aef" />
-    <img alt="sompo" src="https://github.com/user-attachments/assets/f2d48f56-f5d5-42ee-91aa-d59f3926328c" />
-    <img alt="school" src="https://github.com/user-attachments/assets/557d690a-afa8-4a49-8115-a3f9e1c83ff6" />
-    <img alt="putet" src="https://github.com/user-attachments/assets/f7f9524a-4e94-461e-8a04-80047725b52d" />
-    <img alt="nomura" src="https://github.com/user-attachments/assets/93c4727c-bcae-4db3-a978-12ccc50b72cf" />
-    <img alt="likelink" src="https://github.com/user-attachments/assets/9cd2d275-7ed7-4aec-b2de-c20341733f87" />
-    <img alt="la" src="https://github.com/user-attachments/assets/c9266c9f-058a-4a1c-a397-288d1631be07" />
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AZA.</div>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#pubs">Publications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Senior Flutter Developer · 5+ Years</div>
+    <h1 class="hero-name">Aye Zarni<br><span>Aung.</span></h1>
+    <p class="hero-title">Cross-Platform Mobile Engineer</p>
+    <p class="hero-summary">
+      Building high-performance, beautiful mobile experiences with Flutter across Android, iOS & beyond.
+      Passionate about clean architecture, seamless UX, and scalable code that ships.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Get In Touch →</a>
+      <a href="#projects" class="btn-outline">View Projects</a>
+    </div>
   </div>
+  <div class="hero-right">
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-frame">
+        <div class="avatar-initials">AZA</div>
+        <div class="avatar-name">Aye Zarni Aung</div>
+        <div class="avatar-role">Senior Flutter Developer</div>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">5+</span><span class="stat-label">Years Exp</span></div>
+      <div class="stat"><span class="stat-num">8+</span><span class="stat-label">Apps Shipped</span></div>
+      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Stores</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <div class="section-tag">Career Journey</div>
+    <h2 class="section-title">Work Experience</h2>
+  </div>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-meta">
+        <div class="tl-period">May 2023 – Present</div>
+        <div class="tl-company">SpectrumSoft Technologies Co., Ltd</div>
+        <div class="tl-badge">Current Role</div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-role">Senior Flutter Developer</div>
+        <ul class="tl-list">
+          <li>Design, develop & maintain cross-platform apps using Flutter</li>
+          <li>Integrate RESTful APIs and third-party services with backend teams</li>
+          <li>Ensure smooth animations, responsive UI, and high performance across Android & iOS</li>
+          <li>Integrate Firebase push notifications (foreground, background, termination)</li>
+          <li>Apply Flutter localizations for Chinese & English</li>
+          <li>Ensure app security using scanning tools and fix security flaws</li>
+          <li>Replace third-party packages with native platform methods where necessary</li>
+          <li>Manage app submissions to Google Play and Apple App Store</li>
+          <li>Implemented Fingerprint (Android), Face ID (iOS), and PIN authentication</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-meta">
+        <div class="tl-period">Nov 2021 – Apr 2023</div>
+        <div class="tl-company">Strategy First Education Group</div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-role">Senior Flutter Developer</div>
+        <ul class="tl-list">
+          <li>Applied Clean Architecture principles for scalability and maintainability</li>
+          <li>Implemented State Management solutions (Provider, GetX, Riverpod, Bloc, MobX)</li>
+          <li>Integrated Firebase services: cloud messaging, analytics, authentication</li>
+          <li>Implemented in-app purchases and dark/light mode theming</li>
+          <li>Applied shortcut keys for Android TV remote controls</li>
+          <li>Partnered with designers for optimised user journeys and accessibility</li>
+          <li>Monitored app performance and used crash analytics tools</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-meta">
+        <div class="tl-period">Oct 2020 – Present</div>
+        <div class="tl-company">Self-Employed</div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-role">Flutter Developer — Freelance</div>
+        <ul class="tl-list">
+          <li>Delivered end-to-end Flutter apps for multiple clients</li>
+          <li>CI/CD experience with GitHub Actions and Code Magic</li>
+          <li>Managed releases across Google Play, App Store, and Huawei Store</li>
+          <li>Worked in Agile/Sprint-based teams with cross-functional collaboration</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-meta">
+        <div class="tl-period">Oct 2019 – Oct 2020</div>
+        <div class="tl-company">Baanova Co., Ltd.</div>
+      </div>
+      <div class="tl-content">
+        <div class="tl-role">Junior Flutter Developer</div>
+        <ul class="tl-list">
+          <li>Integrated Firebase authentication (Facebook & Google login)</li>
+          <li>Implemented Redux state management</li>
+          <li>Developed custom icons and animation features</li>
+          <li>Optimised app performance and responsiveness across devices</li>
+          <li>Tested small modules with unit testing</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <div class="section-tag">Expertise</div>
+    <h2 class="section-title">Technical Skills</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">📱</div>
+      <div class="skill-cat">Primary</div>
+      <div class="skill-name">Languages</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Flutter / Dart</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">C# .NET</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">J2EE</span>
+        <span class="skill-tag">HTML / CSS</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🏗️</div>
+      <div class="skill-cat">Architecture</div>
+      <div class="skill-name">State Management</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Provider</span>
+        <span class="skill-tag">GetX</span>
+        <span class="skill-tag">Riverpod</span>
+        <span class="skill-tag">Bloc</span>
+        <span class="skill-tag">MobX</span>
+        <span class="skill-tag">Redux</span>
+        <span class="skill-tag">Clean Arch</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-cat">Backend</div>
+      <div class="skill-name">Firebase & APIs</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Firebase</span>
+        <span class="skill-tag">Push Notifications</span>
+        <span class="skill-tag">Analytics</span>
+        <span class="skill-tag">Auth</span>
+        <span class="skill-tag">RESTful APIs</span>
+        <span class="skill-tag">Retrofit</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🗄️</div>
+      <div class="skill-cat">Data</div>
+      <div class="skill-name">Databases</div>
+      <div class="skill-tags">
+        <span class="skill-tag">MySQL</span>
+        <span class="skill-tag">Hive</span>
+        <span class="skill-tag">SQLite</span>
+        <span class="skill-tag">JSON</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-cat">DevOps</div>
+      <div class="skill-name">CI/CD & Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">GitHub Actions</span>
+        <span class="skill-tag">Code Magic</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">GitLab</span>
+        <span class="skill-tag">CI/CD</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🎨</div>
+      <div class="skill-cat">Design</div>
+      <div class="skill-name">UI/UX & Stores</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Figma</span>
+        <span class="skill-tag">Google Play</span>
+        <span class="skill-tag">App Store</span>
+        <span class="skill-tag">Huawei Store</span>
+        <span class="skill-tag">Google AdMob</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <div class="section-tag">Portfolio</div>
+    <h2 class="section-title">Project References</h2>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-header dark" data-logo="NW">
+        <div class="project-logo-box">💹</div>
+        <div class="project-store-badges">
+          <span class="store-badge">Android</span>
+          <span class="store-badge">iOS</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">Nomura Wealth</div>
+        <div class="project-desc">Financial wealth management application for Nomura Securities, available on Android and iOS.</div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header red" data-logo="WL">
+        <div class="project-logo-box">📚</div>
+        <div class="project-store-badges">
+          <span class="store-badge">Android</span>
+          <span class="store-badge">iOS</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">Waso Learn KG-12</div>
+        <div class="project-desc">Educational platform for kindergarten to grade 12 students with interactive learning modules.</div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header maroon" data-logo="PC">
+        <div class="project-logo-box">🎭</div>
+        <div class="project-store-badges">
+          <span class="store-badge">Android</span>
+          <span class="store-badge">iOS</span>
+          <span class="store-badge">Huawei</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">Putet Comics 2.0</div>
+        <div class="project-desc">Digital comics platform deployed across three stores: Google Play, App Store, and Huawei AppGallery.</div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header crimson" data-logo="MD">
+        <div class="project-logo-box">🏛️</div>
+        <div class="project-store-badges">
+          <span class="store-badge">Android</span>
+          <span class="store-badge">iOS</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">MyDemocracy School</div>
+        <div class="project-desc">Civic education app promoting democracy and civic engagement for students and youth.</div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header accent" data-logo="AY">
+        <div class="project-logo-box">🛡️</div>
+        <div class="project-store-badges">
+          <span class="store-badge">Android</span>
+          <span class="store-badge">iOS</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">AYA SOMPO Insurance</div>
+        <div class="project-desc">Insurance management app for AYA SOMPO, enabling policy management and claims on mobile.</div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header deep" data-logo="LA">
+        <div class="project-logo-box">🍀</div>
+        <div class="project-store-badges">
+          <span class="store-badge">Android</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">Lucky Asia & Like Link</div>
+        <div class="project-desc">Lifestyle and social connection apps developed and published on Google Play Store.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="pubs">
+  <div class="section-header">
+    <div class="section-tag">Knowledge Sharing</div>
+    <h2 class="section-title">Publications</h2>
+  </div>
+  <div class="pubs-list">
+    <div class="pub-card">
+      <div class="pub-num">01</div>
+      <div class="pub-title">Flutter Code Obfuscation</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-num">02</div>
+      <div class="pub-title">Version Constraint</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-num">03</div>
+      <div class="pub-title">Building Shallow Widget Tree</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-num">04</div>
+      <div class="pub-title">AdMob Monetization</div>
+    </div>
+    <div class="pub-card">
+      <div class="pub-num">05</div>
+      <div class="pub-title">Device Information using Native Code</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <div class="section-tag">Let's Connect</div>
+    <h2 class="section-title">Get In Touch</h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p>Open to exciting opportunities in Singapore. Available with one month's notice, negotiable salary, and a valid passport ready to go.</p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon">📱</div>
+          <div class="contact-text">
+            <div class="contact-label">WhatsApp</div>
+            +95 9974305678
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-text">
+            <div class="contact-label">Email</div>
+            ayezarniiaung@gmail.com
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">💼</div>
+          <div class="contact-text">
+            <div class="contact-label">LinkedIn</div>
+            linkedin.com/in/ayezarniaung
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🐱</div>
+          <div class="contact-text">
+            <div class="contact-label">GitHub</div>
+            github.com/ayezarniaung
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="info-box">
+        <h4>Personal Details</h4>
+        <div class="info-row"><span class="info-key">Nationality</span><span class="info-val">Myanmar</span></div>
+        <div class="info-row"><span class="info-key">Date of Birth</span><span class="info-val">5 May 1998</span></div>
+        <div class="info-row"><span class="info-key">Languages</span><span class="info-val">English, Burmese</span></div>
+        <div class="info-row"><span class="info-key">Marital Status</span><span class="info-val">Single</span></div>
+      </div>
+      <div class="info-box">
+        <h4>Availability</h4>
+        <div class="info-row"><span class="info-key">Notice Period</span><span class="info-val">1 Month</span></div>
+        <div class="info-row"><span class="info-key">Expected Salary</span><span class="info-val">Negotiable</span></div>
+        <div class="info-row"><span class="info-key">Passport</span><span class="info-val">Valid until Jun 2029</span></div>
+        <div class="info-row"><span class="info-key">Education</span><span class="info-val">B.Sc Computer Science</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 <span>Aye Zarni Aung</span> · Senior Flutter Developer · Built with ❤️</p>
+</footer>
+
 </body>
-
-
-
 </html>
