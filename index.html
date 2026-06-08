@@ -309,6 +309,13 @@
   }
   .project-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.1); }
 
+  .card-link {
+  text-decoration: none;
+  color: inherit; 
+  display: inline-block; 
+  width: 100%; 
+  max-width: 500px; 
+  }
   .project-header {
     height: 100px;
     display: flex; align-items: center; justify-content: space-between;
@@ -317,10 +324,13 @@
   }
   .project-header.red { background: var(--red); }
   .project-header.dark { background: var(--black); }
-  .project-header.maroon { background: #7B0015; }
-  .project-header.crimson { background: #B00020; }
-  .project-header.accent { background: #E8001A; }
-  .project-header.deep { background: #5C000D; }
+    .project-header.nw { background: #C82323; }
+  .project-header.maroon { background: #E6DF22; }
+  .project-header.crimson { background: #FAA019; }
+  .project-header.accent { background: #D11237; }
+  
+  .project-header.la { background: #0B6FB8; }
+  .project-header.deep { background: #1143A2; }
 
   .project-header::before {
     content: attr(data-logo);
@@ -548,7 +558,7 @@
         <ul class="tl-list">
           <li>Delivered end-to-end Flutter apps for multiple clients</li>
           <li>CI/CD experience with GitHub Actions and Code Magic</li>
-          <li>Managed releases across Google Play, App Store, and Huawei Store</li>
+          <li>Managed releases across Google Play and App Store</li>
           <li>Worked in Agile/Sprint-based teams with cross-functional collaboration</li>
         </ul>
       </div>
@@ -582,8 +592,6 @@
   </div>
   <div class="skills-grid">
     <div class="skill-card">
-      <div class="skill-icon">📱</div>
-      <div class="skill-cat">Primary</div>
       <div class="skill-name">Languages</div>
       <div class="skill-tags">
         <span class="skill-tag">Flutter / Dart</span>
@@ -595,8 +603,6 @@
       </div>
     </div>
     <div class="skill-card">
-      <div class="skill-icon">🏗️</div>
-      <div class="skill-cat">Architecture</div>
       <div class="skill-name">State Management</div>
       <div class="skill-tags">
         <span class="skill-tag">Provider</span>
@@ -609,8 +615,6 @@
       </div>
     </div>
     <div class="skill-card">
-      <div class="skill-icon">☁️</div>
-      <div class="skill-cat">Backend</div>
       <div class="skill-name">Firebase & APIs</div>
       <div class="skill-tags">
         <span class="skill-tag">Firebase</span>
@@ -622,8 +626,6 @@
       </div>
     </div>
     <div class="skill-card">
-      <div class="skill-icon">🗄️</div>
-      <div class="skill-cat">Data</div>
       <div class="skill-name">Databases</div>
       <div class="skill-tags">
         <span class="skill-tag">MySQL</span>
@@ -633,8 +635,6 @@
       </div>
     </div>
     <div class="skill-card">
-      <div class="skill-icon">⚙️</div>
-      <div class="skill-cat">DevOps</div>
       <div class="skill-name">CI/CD & Tools</div>
       <div class="skill-tags">
         <span class="skill-tag">GitHub Actions</span>
@@ -645,8 +645,6 @@
       </div>
     </div>
     <div class="skill-card">
-      <div class="skill-icon">🎨</div>
-      <div class="skill-cat">Design</div>
       <div class="skill-name">UI/UX & Stores</div>
       <div class="skill-tags">
         <span class="skill-tag">Figma</span>
@@ -667,87 +665,136 @@
   </div>
   <div class="projects-grid">
 
-    <div class="project-card">
-      <div class="project-header dark" data-logo="NW">
-        <div class="project-logo-box">💹</div>
+
+<div class="project-card">
+      <div class="project-header nw" >
+        <div class="project-logo-box"><img src="nomura.png" title="nomura" class="project-logo-box"/></div> 
         <div class="project-store-badges">
-          <span class="store-badge">Android</span>
+          <a href="https://play.google.com/store/apps/details?id=com.nomuraaej.nomurawealthmobile&pcampaignid=web_share" class="card-link">
+          <span class="store-badge"> Android</span>
+          </a>
+        <a href=" https://apps.apple.com/mm/app/nomura-wealth/id6717579649" class="card-link">
           <span class="store-badge">iOS</span>
-        </div>
+        </a>
+        </div> 
       </div>
       <div class="project-body">
         <div class="project-title">Nomura Wealth</div>
-        <div class="project-desc">Financial wealth management application for Nomura Securities, available on Android and iOS.</div>
+        <div class="project-desc">Nomura Wealth enables our clients to view their wealth portfolio managed by us on the move, available on Android and iOS.</div>
       </div>
     </div>
 
+    
+
     <div class="project-card">
-      <div class="project-header red" data-logo="WL">
-        <div class="project-logo-box">📚</div>
+      <div class="project-header red" >
+        <div class="project-logo-box"><img src="waso.png" title="wasolearn" class="project-logo-box"/></div>
         <div class="project-store-badges">
+                <a href="https://play.google.com/store/apps/details?id=com.sfu.waso_learn&pcampaignid=web_share" class="card-link">
           <span class="store-badge">Android</span>
+          </a>
+          <a href="https://apps.apple.com/mm/app/waso-learn-kg-12/id1531073432" class="card-link">
           <span class="store-badge">iOS</span>
+          </a>
+           <a href="https://play.google.com/store/apps/details?id=com.waso.tv&pcampaignid=web_share" class="card-link">
+          <span class="store-badge">TV</span>
+          </a>
         </div>
       </div>
       <div class="project-body">
         <div class="project-title">Waso Learn KG-12</div>
-        <div class="project-desc">Educational platform for kindergarten to grade 12 students with interactive learning modules.</div>
+        <div class="project-desc">Waso Learn is a mobile learning application for Basic Education High School students in Myanmar. It is one of Strategy First Education Group’s social businesses. Students from kindergarten to Grade 12 can learn the lessons that support their curriculum studies online.</div>
       </div>
     </div>
 
     <div class="project-card">
-      <div class="project-header maroon" data-logo="PC">
-        <div class="project-logo-box">🎭</div>
+      <div class="project-header maroon" >
+        <div class="project-logo-box"><img src="putet.png" title="putet" class="project-logo-box"/></div>
         <div class="project-store-badges">
+             <a href="https://play.google.com/store/apps/details?id=com.putet.comic&pcampaignid=web_share" class="card-link">
           <span class="store-badge">Android</span>
+          </a>
+          <a href="https://apps.apple.com/mm/app/putet-comics-2-0/id1559173511" class="card-link">
           <span class="store-badge">iOS</span>
+          </a>
+          <a href="https://appgallery.huawei.com/app/C102702503" class="card-link">
           <span class="store-badge">Huawei</span>
+          </a>
         </div>
       </div>
       <div class="project-body">
         <div class="project-title">Putet Comics 2.0</div>
-        <div class="project-desc">Digital comics platform deployed across three stores: Google Play, App Store, and Huawei AppGallery.</div>
+        <div class="project-desc">Putet Comics is one of the largest publishers of Myanmar comics, featuring a wide variety of characters including Tutpi, Poe Zar, Shwe Ei Shwe Boat, Jouk Jack and many many more.
+With Putet Comics App, you can download and enjoy great comics from our current weekly journals plus our vast classics library. You can also download the Buddhist comics for free.</div>
       </div>
     </div>
 
     <div class="project-card">
-      <div class="project-header crimson" data-logo="MD">
-        <div class="project-logo-box">🏛️</div>
+      <div class="project-header crimson">
+        <div class="project-logo-box"><img src="school.png" title="school" class="project-logo-box"/></div>
         <div class="project-store-badges">
+          <a href="https://play.google.com/store/apps/details?id=com.nimd.link_learn" class="card-link">
           <span class="store-badge">Android</span>
+          </a>
+          <a href="https://apps.apple.com/xk/app/mydemocracy-school/id1639677600" class="card-link">
           <span class="store-badge">iOS</span>
+          </a>
         </div>
       </div>
       <div class="project-body">
         <div class="project-title">MyDemocracy School</div>
-        <div class="project-desc">Civic education app promoting democracy and civic engagement for students and youth.</div>
+        <div class="project-desc">MyDemocracy School is an application to provide political knowledge and skills. MyDemocracy School is a free, low-data usage, mobile application/web-based tool. The aim of the app is to empower youth, women, and ethnic leaders and Alumni of Democracy School in Myanmar, who are interested in politics with the knowledge and skills to mindfully participate in political processes. Users will have unlimited online and offline access to expertly curated, interactive content from training handbooks and publications of MyDemocracy School for free.</div>
       </div>
     </div>
 
     <div class="project-card">
-      <div class="project-header accent" data-logo="AY">
-        <div class="project-logo-box">🛡️</div>
+      <div class="project-header accent" >
+        <div class="project-logo-box"><img src="ayasompo.png" title="ayasompo" class="project-logo-box"/></div>
         <div class="project-store-badges">
+          <a href="https://play.google.com/store/apps/details?id=com.ml.ayasompo&pcampaignid=web_share" class="card-link">
           <span class="store-badge">Android</span>
+          </a>
+          <a href="https://apps.apple.com/mm/app/my-ayasompo/id6475663317" class="card-link">
           <span class="store-badge">iOS</span>
+           </a>
         </div>
       </div>
       <div class="project-body">
         <div class="project-title">AYA SOMPO Insurance</div>
-        <div class="project-desc">Insurance management app for AYA SOMPO, enabling policy management and claims on mobile.</div>
+        <div class="project-desc">Solutions to Uncertainties, protecting yourself and your loved ones with us is now even more accessible with the enhanced My AYASOMPO app.
+This application is AYA SOMPO’s dedication to simplifying insurance solutions and improving its customers' lives through a seamless and personalized experience.
+My AYASOMPO customers can easily manage their insurance policy details, facilitate policy alternations with just one click, access real-time services such as consultation, and quick claims solutions, and even enjoy exclusive rewards, all in one app!</div>
       </div>
     </div>
 
     <div class="project-card">
-      <div class="project-header deep" data-logo="LA">
-        <div class="project-logo-box">🍀</div>
+      <div class="project-header la" >
+        <div class="project-logo-box"><img src="la.png" title="lucky asia" class="project-logo-box"/></div>
         <div class="project-store-badges">
+          <a href="https://play.google.com/store/apps/details?id=com.authormm.luckyasia&hl=en" class="card-link">
           <span class="store-badge">Android</span>
+          </a>
         </div>
       </div>
       <div class="project-body">
-        <div class="project-title">Lucky Asia & Like Link</div>
-        <div class="project-desc">Lifestyle and social connection apps developed and published on Google Play Store.</div>
+        <div class="project-title">Lucky Asia</div>
+        <div class="project-desc">Lucky Asia App is developed to calculate, store, and deliver the products. In this application, it contains many features such as delivery, marketing, order, despatch, van sale, profile, notification, Q&A with team, Notification for daily offers, deals, and orders status, etc.</div>
+      </div>
+    </div>
+
+
+    <div class="project-card">
+      <div class="project-header deep" >
+        <div class="project-logo-box"><img src="likelink.png" title="likelink" class="project-logo-box"/></div>
+        <div class="project-store-badges">
+          <a href="https://play.google.com/store/apps/details?id=com.authors.likelink_customer_merchant" class="card-link">
+          <span class="store-badge">Android</span>
+          </a>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-title">Like Link</div>
+        <div class="project-desc">Like Link App is developed to calculate, store, and deliver the products. In this application, it contains many features such as delivery, marketing, order, despatch, van sale, profile, notification, Q&A with team, Notification for daily offers, deals, and orders status, etc.</div>
       </div>
     </div>
 
@@ -761,26 +808,31 @@
     <h2 class="section-title">Publications</h2>
   </div>
   <div class="pubs-list">
+   
+    <a href="https://medium.com/@ayezarniiaung/flutter-code-obfuscation-5c3414c7e37c" class="card-link">
     <div class="pub-card">
       <div class="pub-num">01</div>
       <div class="pub-title">Flutter Code Obfuscation</div>
     </div>
+    </a>
+    <a href="https://medium.com/@ayezarniiaung/building-the-shallow-widget-tree-faa17aee09fd" class="card-link">
     <div class="pub-card">
       <div class="pub-num">02</div>
-      <div class="pub-title">Version Constraint</div>
-    </div>
-    <div class="pub-card">
-      <div class="pub-num">03</div>
       <div class="pub-title">Building Shallow Widget Tree</div>
     </div>
+    </a>
+    <a href="https://medium.com/@ayezarniiaung/admob-monetization-in-flutter-1678c65cd0e2" class="card-link">
     <div class="pub-card">
-      <div class="pub-num">04</div>
+      <div class="pub-num">03</div>
       <div class="pub-title">AdMob Monetization</div>
     </div>
+    </a>
+    <a href="https://medium.com/@ayezarniiaung/how-to-detect-programmatically-mobile-device-information-in-both-android-and-ios-8233069d2df9" class="card-link">
     <div class="pub-card">
-      <div class="pub-num">05</div>
-      <div class="pub-title">Device Information using Native Code</div>
+      <div class="pub-num">04</div>
+      <div class="pub-title">Device Information</div>
     </div>
+    </a>
   </div>
 </section>
 
@@ -798,28 +850,28 @@
           <div class="contact-icon">📱</div>
           <div class="contact-text">
             <div class="contact-label">WhatsApp</div>
-            +95 9974305678
+            <a href="https://wa.me/959974305678" class="card-link">+959 974305678</a>
           </div>
         </div>
         <div class="contact-item">
           <div class="contact-icon">✉️</div>
           <div class="contact-text">
             <div class="contact-label">Email</div>
-            ayezarniiaung@gmail.com
+            <a href="mailto: ayezarniiaung@gmail.com" class="card-link">ayezarniiaung@gmail.com</a>
           </div>
         </div>
         <div class="contact-item">
           <div class="contact-icon">💼</div>
           <div class="contact-text">
             <div class="contact-label">LinkedIn</div>
-            linkedin.com/in/ayezarniaung
+           <a href="https://www.linkedin.com/in/ayezarniaung/" class="card-link">linkedin.com/in/ayezarniaung</a> 
           </div>
         </div>
         <div class="contact-item">
           <div class="contact-icon">🐱</div>
           <div class="contact-text">
             <div class="contact-label">GitHub</div>
-            github.com/ayezarniaung
+           <a href="https://github.com/ayezarniaung" class="card-link">github.com/ayezarniaung</a> 
           </div>
         </div>
       </div>
@@ -837,7 +889,7 @@
         <div class="info-row"><span class="info-key">Notice Period</span><span class="info-val">1 Month</span></div>
         <div class="info-row"><span class="info-key">Expected Salary</span><span class="info-val">Negotiable</span></div>
         <div class="info-row"><span class="info-key">Passport</span><span class="info-val">Valid until Jun 2029</span></div>
-        <div class="info-row"><span class="info-key">Education</span><span class="info-val">B.Sc Computer Science</span></div>
+        <div class="info-row"><span class="info-key">Education</span><span class="info-val">B.C.Sc Computer Science</span></div>
       </div>
     </div>
   </div>
@@ -845,7 +897,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2024 <span>Aye Zarni Aung</span> · Senior Flutter Developer · Built with ❤️</p>
+  <p>© 2026 <span>Aye Zarni Aung</span> · Senior Flutter Developer · Built with ❤️</p>
 </footer>
 
 </body>
